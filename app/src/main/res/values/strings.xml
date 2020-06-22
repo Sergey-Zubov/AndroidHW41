@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Android-HW-4.1</string>
+    <string name="payment_form">Форма оплаты</string>
+    <string name="hint_sum_for_payment">Сумма</string>
+    <string name="hint_info_about_payment_card_number">Номер карты</string>
+    <string name="hint_info_about_payment_mobile_number">Номер телефона</string>
+    <string name="hint_info_about_payment_cash_at_address">Адрес</string>
+    <string name="btn_payment_ok">OK</string>
+    <string name="payment_method">Способ оплаты</string>
+    <string name="check_box_card_payment">с банковской карты</string>
+    <string name="check_box_mobile_phone_payment">с мобильного телефона</string>
+    <string name="check_box_payment_cash_at_address">наличными по адресу</string>
+    <string name="field_sum_contains_too_big_value">Вы ввели слишком большую сумму!</string>
+    <string name="field_info_about_payment_contains_too_big_value">Вы ввели слишком много символов!
+    </string>
+    <string name="exception_btn_payment_ok">Неверный формат данных!</string>
+    <string name="field_is_empty">"Заполните все поля!"</string>
+</resources>
