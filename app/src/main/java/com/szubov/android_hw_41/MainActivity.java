@@ -32,9 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mCheckBoxPaymentFromBankCard.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mEditTextInfoAboutPayment.setText(null);
-                mCheckBoxPaymentByMobilePhone.setChecked(false);
-                mCheckBoxPaymentCashAtAddress.setChecked(false);
+                resetCheckBoxesAndPaymentInfoFiled();
                 mCheckBoxPaymentFromBankCard.setChecked(isChecked);
                 mEditTextInfoAboutPayment.setInputType(InputType.TYPE_CLASS_NUMBER);
                 mEditTextInfoAboutPayment.setHint(R.string.hint_info_about_payment_card_number);
@@ -45,9 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mEditTextInfoAboutPayment.setText(null);
-                mCheckBoxPaymentFromBankCard.setChecked(false);
-                mCheckBoxPaymentCashAtAddress.setChecked(false);
+                resetCheckBoxesAndPaymentInfoFiled();
                 mCheckBoxPaymentByMobilePhone.setChecked(isChecked);
                 mEditTextInfoAboutPayment.setInputType(InputType.TYPE_CLASS_PHONE);
                 mEditTextInfoAboutPayment.setHint(R.string.hint_info_about_payment_mobile_number);
@@ -57,14 +53,25 @@ public class MainActivity extends AppCompatActivity {
         mCheckBoxPaymentCashAtAddress.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mEditTextInfoAboutPayment.setText(null);
-                mCheckBoxPaymentFromBankCard.setChecked(false);
-                mCheckBoxPaymentByMobilePhone.setChecked(false);
+                resetCheckBoxesAndPaymentInfoFiled();
                 mCheckBoxPaymentCashAtAddress.setChecked(isChecked);
                 mEditTextInfoAboutPayment.setInputType(InputType.TYPE_CLASS_TEXT);
                 mEditTextInfoAboutPayment.setHint(R.string.hint_info_about_payment_cash_at_address);
             }
         });
+    }
+
+    private void resetCheckBoxesAndPaymentInfoFiled() {
+        mCheckBoxPaymentFromBankCard.setChecked(false);
+        mCheckBoxPaymentByMobilePhone.setChecked(false);
+        mCheckBoxPaymentCashAtAddress.setChecked(false);
+        mEditTextInfoAboutPayment.setText(null);
+    }
+
+    private void resetPaymentForm() {
+        mEditTextSumForPayment.setText(null);
+        mEditTextInfoAboutPayment.setText(null);
+        mCheckBoxPaymentFromBankCard.setChecked(true);
     }
 
     public void btnPaymentOkOnClick(View view) {
@@ -76,13 +83,18 @@ public class MainActivity extends AppCompatActivity {
                 break;
             } else if (mEditTextInfoAboutPayment.length() >= 100) {
                 Toast.makeText(this,
-                        getText(R.string.field_info_about_payment_contains_too_big_value).toString(),
+                        getText(R.string.exception_btn_payment_ok).toString(),
                         Toast.LENGTH_LONG).show();
                 break;
             } else if (mEditTextSumForPayment.length() >= 15) {
                 Toast.makeText(this, getText(R.string.field_sum_contains_too_big_value).toString(),
                         Toast.LENGTH_LONG).show();
                 break;
+            }else if (mEditTextInfoAboutPayment.getText().toString().
+                    replaceAll("\\s+", "").length() < 1) {
+                Toast.makeText(this,
+                        getText(R.string.field_info_for_payment_contains_invalid_values).toString(),
+                        Toast.LENGTH_LONG).show();
             } else {
                 try {
                     if (mCheckBoxPaymentFromBankCard.isChecked()) {
@@ -91,30 +103,29 @@ public class MainActivity extends AppCompatActivity {
                                 + "\n" + getText(R.string.payment_method).toString() + ": "
                                 + getText(R.string.check_box_card_payment).toString()
                                 + "\n" + getText(R.string.hint_info_about_payment_card_number).toString() + ": "
-                                + mEditTextInfoAboutPayment.getText().toString(), Toast.LENGTH_LONG).show();
-                        mEditTextSumForPayment.setText(null);
-                        mEditTextInfoAboutPayment.setText(null);
-                        mCheckBoxPaymentFromBankCard.setChecked(true);
+                                + mEditTextInfoAboutPayment.getText().toString(),
+                                Toast.LENGTH_LONG).show();
+                        resetPaymentForm();
                     } else if (mCheckBoxPaymentByMobilePhone.isChecked()) {
                         Toast.makeText(this, getText(R.string.hint_sum_for_payment).toString()
                                 + ": " + mEditTextSumForPayment.getText().toString()
                                 + "\n" + getText(R.string.payment_method).toString() + ": "
                                 + getText(R.string.check_box_mobile_phone_payment).toString()
                                 + "\n" + getText(R.string.hint_info_about_payment_mobile_number).toString() + ": "
-                                + mEditTextInfoAboutPayment.getText().toString(), Toast.LENGTH_LONG).show();
-                        mEditTextSumForPayment.setText(null);
-                        mEditTextInfoAboutPayment.setText(null);
-                        mCheckBoxPaymentFromBankCard.setChecked(true);
+                                + mEditTextInfoAboutPayment.getText().toString().
+                                        replaceAll("\\s+", " ").trim(),
+                                Toast.LENGTH_LONG).show();
+                        resetPaymentForm();
                     } else {
                         Toast.makeText(this, getText(R.string.hint_sum_for_payment).toString()
                                 + ": " + mEditTextSumForPayment.getText().toString()
                                 + "\n" + getText(R.string.payment_method).toString() + ": "
                                 + getText(R.string.check_box_payment_cash_at_address).toString()
                                 + "\n" + getText(R.string.hint_info_about_payment_cash_at_address).toString() + ": "
-                                + mEditTextInfoAboutPayment.getText().toString(), Toast.LENGTH_LONG).show();
-                        mEditTextSumForPayment.setText(null);
-                        mEditTextInfoAboutPayment.setText(null);
-                        mCheckBoxPaymentFromBankCard.setChecked(true);
+                                + mEditTextInfoAboutPayment.getText().toString().
+                                        replaceAll("\\s+", " ").trim(),
+                                Toast.LENGTH_LONG).show();
+                        resetPaymentForm();
                     }
                 } catch (NumberFormatException ex) {
                     Toast.makeText(this, R.string.exception_btn_payment_ok,

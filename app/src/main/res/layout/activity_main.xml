@@ -30,7 +30,7 @@
         android:layout_marginTop="40dp"
         android:hint="@string/hint_info_about_payment_card_number"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="number"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textViewPaymentMethod"

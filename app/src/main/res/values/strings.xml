@@ -11,8 +11,8 @@
     <string name="check_box_mobile_phone_payment">с мобильного телефона</string>
     <string name="check_box_payment_cash_at_address">наличными по адресу</string>
     <string name="field_sum_contains_too_big_value">Вы ввели слишком большую сумму!</string>
-    <string name="field_info_about_payment_contains_too_big_value">Вы ввели слишком много символов!
-    </string>
     <string name="exception_btn_payment_ok">Неверный формат данных!</string>
+    <string name="field_info_for_payment_contains_invalid_values">
+        В поле \"Информация для оплаты\" введены некоректные данные!</string>
     <string name="field_is_empty">"Заполните все поля!"</string>
 </resources>
